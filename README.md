@@ -64,9 +64,9 @@
 
 ### Screenshots
 
-![](/home/yunbo/work/node/contact-manager/_readme_assets/contact_manager_home.png)
+![](_readme_assets/contact_manager_home.png)
 
 
 
-![](/home/yunbo/work/node/contact-manager/_readme_assets/contact_manager_edit.png)
+![](_readme_assets/contact_manager_edit.png)
 
