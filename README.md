@@ -1,7 +1,7 @@
 # Simple Contact Manager webapp using docker
 ## Using nodejs (express) / reactjs / posgresql (docker)
 
-### Influenced by [bezkoder node express postgresql webapp](https://bezkoder.com/node-express-sequelize-postgresql/)
+### Based on [Contact Manager](https://github.com/yblee85/contact_manager)
 
 
 
