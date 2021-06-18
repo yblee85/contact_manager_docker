@@ -1,4 +1,4 @@
-# Simple Contact Manager webapp 
+# Simple Contact Manager webapp using docker
 ## Using nodejs (express) / reactjs / posgresql (docker)
 
 ### Influenced by [bezkoder node express postgresql webapp](https://bezkoder.com/node-express-sequelize-postgresql/)
@@ -7,58 +7,29 @@
 
 
 
-### Setup DB using docker
+### Build api docker image and run
 
-1. Create Postgres docker container [db setup steps here](db/README.md)
-
-
-
-### Setup API .env
-
-2. if you do for dev in local, rest of env info would be
-
+1. in api directory, I alredy created Dockerfile
+2. docker build -t yunbo/contact-manager-api:1.0 .
+3. docker run -p 8080:8080 --env-file ./.env --network contact-manager-network --name api yunbo/contact-manager-api:1.0
+   1. If network not created yet,
    ```
-   DB_HOST = localhost
-   DB_PORT = 5432
-   DB_NAME = postgres
-   DB_USER = postgres
-   ```
-
-3. db password you created from 1, paste it in api/{.env file} -> DB_PASS
-
-4. generate random key and put it in API_KEY
+   $ docker network create contact-manager-network
 
 
 
-### Setup frontend .env
 
-5. create .env.development file in frontend root dir ( copy and paste from .env.sample )
-6. replace api key with you generated in 4.
-7. if you run in local, host and port would be localhost and 8080
+### Build frontend docker image and run
 
+4. in frontend directory, I already created Dockerfile
+5. docker build -t yunbo/contact-manager-frontend:1.0 .
+6. docker run -p 8001:80 --network contact-manager-network --name frontend yunbo/contact-manager-frontend:1.0
+   Unfortunately react app makes harder to use .env file separately. you have to include .env in docker image
 
 
 ### Run app
 
-8. in db directory,
-
-   ```$ docker start {container_name_from_1}
-   $ docker start {container_name_from_1}
-   ```
-
-9. in api directory
-
-   ```
-   $ node server.js
-   ```
-
-10. in frontend directory
-
-    ```
-    $ npm start
-    ```
-
-
+7. when all dockers are running, go to localhost:8001
 
 
 
@@ -70,3 +41,7 @@
 
 ![](_readme_assets/contact_manager_edit.png)
 
+
+### TODO
+1. in api, we will need to add login that returns jwt token
+2. in frontend, api controller, instead of using simple http request style, it should be api manager that gets token and refresh if it expires

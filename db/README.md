@@ -9,6 +9,7 @@
 1. in db directory
 `$ docker run -d \
     --name {CONTAINER_NAME_YOU_WANT_TO_USE} \
+    --network contact-manager-network \
     -p 5432:5432 \
     -e POSTGRES_PASSWORD={MY_SECRET_PASS} \
     -e PGDATA=/var/lib/postgresql/data/pgdata \

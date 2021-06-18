@@ -9,7 +9,7 @@ import ReqValidator from "./control/ReqValidator.js";
 
 const app = express();
 
-const allowOrigins = ["http://localhost:3000"];
+const allowOrigins = process.env.API_ALLOW_ORIGINS?process.env.API_ALLOW_ORIGINS.split(","):[]
 const corsOptions = {
   origin: allowOrigins
 };
@@ -26,6 +26,11 @@ app.use(express.urlencoded());
 app.get("/", (req, res) => {
   res.json({ message: "OK" });
 });
+
+app.get("/api/login", (req, res)=>{
+  res.json({ message: "OK", api_key:process.env.API_KEY });
+})
+
 app.use("/api", ReqValidator);
 app.use("/api/contact", contact_router);
 
