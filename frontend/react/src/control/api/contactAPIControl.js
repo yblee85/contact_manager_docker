@@ -1,12 +1,9 @@
 import axios from "axios";
 
-const { REACT_APP_API_HOST, REACT_APP_API_PORT, REACT_APP_API_KEY } = process.env;
-
 const apiHttp = axios.create({
-  baseURL: `http://${REACT_APP_API_HOST}:${REACT_APP_API_PORT}/api`,
+  baseURL: `/api`,
   headers: {
-    "Content-type": "application/json",
-    "api_key" : REACT_APP_API_KEY
+    "Content-type": "application/json"
   }
 });
 

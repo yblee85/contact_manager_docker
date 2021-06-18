@@ -1,24 +1,27 @@
-FROM node:14-alpine3.10 as builder
+FROM node:14-alpine3.10 as react_builder
 
 WORKDIR /app
 
-COPY package*.json /app/
+COPY ./react/package*.json /app/
 
 RUN npm install
 
-# .env file must exist, do not put it in dockerignore
-COPY ./ /app/
+COPY ./react/ /app/
 
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM node:14-alpine3.10 as server_builder
 
-# Set working directory to nginx asset directory
-WORKDIR /usr/share/nginx/html
-# Remove default nginx static assets
-RUN rm -rf ./*
-# Copy static assets from builder stage
-COPY --from=builder /app/build .
-# Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+
+COPY ./webserver/package*.json /app/
+
+RUN npm install -g nodemon
+RUN npm install
+
+COPY ./webserver/ /app/
+
+COPY --from=react_builder /app/build/ ./build/
+
+CMD ["nodemon", "server.js"]

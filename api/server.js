@@ -9,10 +9,11 @@ import ReqValidator from "./control/ReqValidator.js";
 
 const app = express();
 
-const allowOrigins = process.env.API_ALLOW_ORIGINS?process.env.API_ALLOW_ORIGINS.split(","):[]
-const corsOptions = {
+const allowOrigins = process.env.API_ALLOW_ORIGINS?process.env.API_ALLOW_ORIGINS.split(","):undefined;
+const corsOptions = 
+allowOrigins?{
   origin: allowOrigins
-};
+}:undefined;
 
 app.use(cors(corsOptions));
 
